@@ -1,0 +1,188 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Threading;
+
+public class PlayerHealth : MonoBehaviour
+{
+    private int maxhealth = 400; 
+    private int currenthealth;
+    private Animator animator;
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        animator.SetBool("hurt", false);
+        animator.SetBool("death", false);
+        currenthealth = maxhealth;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (currenthealth <= 0){
+            Die();
+        }
+    }
+    public void GotDamage(int damage){
+        currenthealth -= damage;
+        Mathf.Clamp(currenthealth, 0, maxhealth);
+
+    }
+    public void GetHealed(int healing){
+
+        currenthealth += healing;
+        Mathf.Clamp(currenthealth, 0, maxhealth);
+    }
+    void Die(){
+       animator.SetBool("death", true);
+       StartCoroutine(RestInPeace());
+    }
+    System.Collections.IEnumerator RestInPeace(){
+
+       yield return new WaitForSeconds(0.5f);
+       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+       animator.SetBool("death", false);
+    }
+    public int Getcurrenthealth()
+    {
+        return currenthealth;
+    }
+     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyBullet")) // Prüfen, ob es ein Gegner ist
+        {
+            GotDamage(20);
+            animator.SetBool("hurt", true);
+            StartCoroutine(healingmyself());// Schaden nehmen, z.B. 10 Punkte
+
+        }
+ 
+        if (collision.gameObject.CompareTag("EnemySkeleton")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(25);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+        if (collision.gameObject.CompareTag("EnemyGiantSkeleton")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(100);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+        if (collision.gameObject.CompareTag("EnemyBat")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(10);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+         if (collision.gameObject.CompareTag("EnemyGolem")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(30);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+         if (collision.gameObject.CompareTag("EnemyRelict")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(35);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+        if (collision.gameObject.CompareTag("EnemyIceGolem")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(50);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+        if (collision.gameObject.CompareTag("EnemyGhostRunner")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(25);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+         if (collision.gameObject.CompareTag("EnemyDwarf")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(50);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+        if (collision.gameObject.CompareTag("EnemyGiant")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(100);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+        if (collision.gameObject.CompareTag("EnemyDeath")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(200);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+        if (collision.gameObject.CompareTag("EnemyAradin")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(40);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+        if (collision.gameObject.CompareTag("EnemyIserith")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(50);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+         if (collision.gameObject.CompareTag("darkness")) // Prüfen, ob es ein Gegner ist
+        {
+            
+               GotDamage(30);
+               animator.SetBool("hurt", true);
+               StartCoroutine(healingmyself());
+            // Schaden nehmen, z.B. 10 Punkte
+
+        }
+    }
+   
+    
+    System.Collections.IEnumerator healingmyself(){
+        yield return new WaitForSeconds(0.1f);
+        animator.SetBool("hurt", false);
+       
+    }
+}
